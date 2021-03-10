@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">push</string>
+    <string name="title_activity_base_push">BasePushActivity</string>
+</resources>

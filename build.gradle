@@ -1,0 +1,82 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+buildscript {
+
+    repositories {
+        google()
+        mavenCentral()
+        maven{ url'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        maven {
+            url 'https://maven.google.com'
+        }
+    }
+    dependencies {
+        dependencies {
+            classpath 'com.android.tools.build:gradle:3.2.1'
+        }
+    }
+}
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven{ url'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven{ url'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        maven {
+            url 'https://maven.google.com'
+        }
+        maven { url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/" }
+        maven { url "http://nexus.tongdao.cn/nexus/content/repositories/releases" }
+        maven { url "http://nexus.tongdao.cn/nexus/content/repositories/releases-snapshots" }
+        maven { url 'http://developer.huawei.com/repo/' }
+    }
+}
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        useLibrary 'org.apache.http.legacy'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [
+                GETUI_APP_ID : "test",
+                GETUI_APP_KEY : "test",
+                GETUI_APP_SECRET : "test"
+        ]
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.getui:sdk:2.13.3.0'
+    compile 'com.huawei.android.hms:push:2.5.2.300'
+    compile 'com.huawei.android.hms:base:2.5.2.300'
+    compile 'com.meizu.flyme.internet:push-internal:4.0.2'
+    implementation(name:'com.heytap.msp', ext:'aar')
+}
+uploadArchives {
+    repositories.mavenDeployer {
+        name = 'mavenCentralReleaseDeployer'
+        pom.version = "1.0" //release
+
+        pom.artifactId = "android-jf-push-q"
+        pom.groupId = "com.jf.swift"
+        pom.name = "android-jf-push-q"
+        pom.packaging = 'aar'
+    }
+}
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
