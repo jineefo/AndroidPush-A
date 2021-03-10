@@ -27,8 +27,6 @@ allprojects {
             url 'https://maven.google.com'
         }
         maven { url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/" }
-        maven { url "http://nexus.tongdao.cn/nexus/content/repositories/releases" }
-        maven { url "http://nexus.tongdao.cn/nexus/content/repositories/releases-snapshots" }
         maven { url 'http://developer.huawei.com/repo/' }
     }
 }
@@ -64,7 +62,7 @@ dependencies {
     compile 'com.huawei.android.hms:push:2.5.2.300'
     compile 'com.huawei.android.hms:base:2.5.2.300'
     compile 'com.meizu.flyme.internet:push-internal:4.0.2'
-    implementation(name:'com.heytap.msp', ext:'aar')
+    implementation(name:'msp', ext:'aar')
 }
 uploadArchives {
     repositories.mavenDeployer {
